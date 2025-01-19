@@ -9,6 +9,86 @@
    
     <script src="RockPaperScissors.js">
 
+const R = 1;
+        const P = 2;
+        const S = 3;
+
+        let playerScore = 0;
+        let computerScore = 0;
+
+        // Create buttons
+        const b1 = document.createElement('button');
+        const b2 = document.createElement('button');
+        const b3 = document.createElement('button');
+
+        // Set button text
+        b1.textContent = 'Rock';
+        b2.textContent = 'Paper';
+        b3.textContent = 'Scissors';
+
+        // Add buttons to the page
+        document.body.appendChild(b1);
+        document.body.appendChild(b2);
+        document.body.appendChild(b3);
+
+        function getComputerChoice() {
+            return Math.floor(Math.random() * 3) + 1;
+        }
+
+        function updateScore() {
+            const scoreDiv = document.getElementById('score');
+            scoreDiv.textContent = `Score: Player ${playerScore} - Computer ${computerScore}`;
+        }
+
+        function playRound(playerChoice) {
+            const computerChoice = getComputerChoice();
+            const resultsDiv = document.getElementById('results');
+            
+            if(playerChoice === R && computerChoice === P){
+                resultsDiv.textContent = "You lose! Paper beats Rock";
+                computerScore++;
+            } else if(playerChoice === R && computerChoice === S){
+                resultsDiv.textContent = "You Win! Rock beats Scissors";
+                playerScore++;
+            } else if(playerChoice === R && computerChoice === R){
+                resultsDiv.textContent = "It's a tie!";
+            } else if(playerChoice === P && computerChoice === S){
+                resultsDiv.textContent = "You lose! Scissors beats Paper";
+                computerScore++;
+            } else if(playerChoice === P && computerChoice === R){
+                resultsDiv.textContent = "You Win! Paper beats Rock";
+                playerScore++;
+            } else if(playerChoice === P && computerChoice === P){
+                resultsDiv.textContent = "It's a tie!";
+            } else if(playerChoice === S && computerChoice === R){
+                resultsDiv.textContent = "You lose! Rock beats Scissors";
+                computerScore++;
+            } else if(playerChoice === S && computerChoice === P){
+                resultsDiv.textContent = "You Win! Scissors beats Paper";
+                playerScore++;
+            } else if(playerChoice === S && computerChoice === S){
+                resultsDiv.textContent = "It's a tie!";
+            }
+
+            updateScore();
+
+            // Check for winner
+            if (playerScore === 5 || computerScore === 5) {
+                const winner = playerScore === 5 ? "Player" : "Computer";
+                resultsDiv.textContent += `\nGame Over! ${winner} wins!`;
+                // Disable buttons
+                b1.disabled = true;
+                b2.disabled = true;
+                b3.disabled = true;
+            }
+        }
+
+        // Add event listeners correctly
+        b1.addEventListener('click', () => playRound(R));
+        b2.addEventListener('click', () => playRound(P));
+        b3.addEventListener('click', () => playRound(S));
+        
+
     </script>
 </body>
 </html>
